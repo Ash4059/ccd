@@ -2,9 +2,8 @@
 {% block title%} Payment status{% endblock %}
 {% block body %}
 <div class="container">
-    {{response}}
     <div class="col my-4">
-
+        <p id="demo"></p>
         <h2>Payment status regarding your order Id {{response.ORDERID}}</h2>
         {% if response.RESPCODE == '01' %}
         <h3>ORDER SUCCESS</h3> 
@@ -18,5 +17,12 @@
 {% endblock %}
 {% block js %}
 <script>
+    localStorage.clear();
+    function makeAlert(){ 
+        window.location="/coffee/home";
+    };
+    
+    setInterval(makeAlert, 1500);
+    
 </script>
 {% endblock %}

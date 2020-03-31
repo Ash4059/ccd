@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from .models import Products, Orders, Contact, Order_update
 from django.views.decorators.csrf import csrf_exempt
 from . import checksum
-
+from django.contrib.auth.decorators import login_required
 MERCHANT_KEY = "3rcCVGv2DCExfX42"
 
 
@@ -15,7 +15,6 @@ def searchMatch(query, item):
         return True
     else:
         return False
-
 
 def index(request):
     
@@ -29,7 +28,6 @@ def index(request):
         allProds.append([prod, range(0, nSlides), nSlides])
     params = {'allProds': allProds}
     return render(request, 'coffee/index.html', params)
-
 
 def search(request):
     query = request.GET.get('search','')
@@ -50,10 +48,8 @@ def search(request):
         params = {'msg': "Please make sure to enter relevant search query"}
     return render(request, 'coffee/search.html', params)
 
-
 def about(request):
     return render(request, 'coffee/about.html')
-
 
 def contact(request):
     thank = False
@@ -67,7 +63,6 @@ def contact(request):
         thank = True
 
     return render(request, 'coffee/contact.html', {'thank': thank})
-
 
 def track(request):
     if request.method == "POST":
@@ -97,7 +92,6 @@ def Login(request):
 
 def Sign_up(request):
     return render(request, 'coffee/signup.html')
-
 
 def check_out(request):
 
@@ -137,7 +131,6 @@ def check_out(request):
             param_dict, MERCHANT_KEY)
         return render(request, 'coffee/paytm.html', {'param_dict': param_dict})
     return render(request, 'coffee/checkout.html')
-
 
 def product(request, myid):
     # Fetch the product using id
