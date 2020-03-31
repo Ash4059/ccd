@@ -55,9 +55,10 @@
         })
 
             .done(function (data) {
+                $('#details').empty();
                 data = JSON.parse(data);
-                updates = data[0];
-                if (updates.length > 0 & updates != {}) {
+                if (data['status'] == "Success") {
+                    updates = data['Updates'];
                     for (i = 0; i < updates.length; i++) {
                         let text = updates[i]['text'];
                         let time = updates[i]['time'];
@@ -67,24 +68,21 @@
                         </li>`
                         $('#items').append(mystr);
                     }
-
-                }
-                else {
-
-                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
-                        Sorry, We are not able to fetch this order id and email. Make sure to type correct order Id and email</li>`
-                    $('#items').append(mystr);
-                }
-                cart =JSON.parse(data[1]);
-                for (var item in cart) {
-
-                    let name = cart[item][1];
-                    let qty = cart[item][0];
-                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    cart = JSON.parse(data['itemJson']);
+                    for (var item in cart) {
+                        let name = cart[item][1];
+                        let qty = cart[item][0];
+                        mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
                     ${name}
                     <span class="badge badge-primary badge-pill">${qty}</span>
                 </li>`
-                    $('#details').append(mystr);
+                        $('#details').append(mystr);
+                    }
+                }
+                else {
+                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                        Sorry, We are not able to fetch this order id and email. Make sure to type correct order Id and email</li>`
+                    $('#items').append(mystr);
                 }
             });
         event.preventDefault();

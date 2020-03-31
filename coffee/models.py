@@ -33,6 +33,7 @@ class Orders(models.Model):
     state=models.CharField(max_length=80)
     city=models.CharField(max_length=50)
     zip_code=models.CharField(max_length=10)
+    amount=models.IntegerField(default=0)
     phone=models.IntegerField()
 class Order_update(models.Model):
     update_id=models.AutoField(primary_key=True)

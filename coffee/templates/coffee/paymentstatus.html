@@ -1,0 +1,22 @@
+{% extends 'coffee\base.html' %}
+{% block title%} Payment status{% endblock %}
+{% block body %}
+<div class="container">
+    {{response}}
+    <div class="col my-4">
+
+        <h2>Payment status regarding your order Id {{response.ORDERID}}</h2>
+        {% if response.RESPCODE == '01' %}
+        <h3>ORDER SUCCESS</h3> 
+        {% else %}
+        <h3>ORDER FAILURE</h3> 
+        {% endif%}
+
+    </div>
+
+</div>
+{% endblock %}
+{% block js %}
+<script>
+</script>
+{% endblock %}

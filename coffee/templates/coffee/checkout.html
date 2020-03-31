@@ -24,6 +24,7 @@
         <form method="POST" action="/coffee/checkout/">
             {% csrf_token %}
             <input type="hidden" name="itemJson" id="itemJson">
+            <input type="hidden" name="amount" id="amount">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputname">Name</label>
@@ -84,8 +85,6 @@
         $('#items').append(mystr);
     }
     else {
-
-
         for (var item in cart) {
 
             let name = cart[item][1];
@@ -104,10 +103,10 @@
     document.getElementById('total_price').innerHTML = total_price;
     $('#itemJson').val(JSON.stringify(cart));
     {% if thank %}
-    alert('Thanks for ordering with us. Your order is is {{id}}. Use it to track your order using our order tracker');
+    alert('Thanks for ordering with us. Your order id is {{id}}. Use it to track your order using our order tracker');
     localStorage.clear();
     document.location = "/coffee/home";
     {% endif %}
-
+    $('#amount').val($('#total_price').html())
 </script>
 {% endblock %}
